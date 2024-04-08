@@ -1,0 +1,410 @@
+2024-04-03 22:34:54,012 [INFO]: ********************* STARTED ETL JOB ***************************
+2024-04-03 22:34:54,012 [INFO]: *****************************************************************
+2024-04-03 22:35:28,215 [INFO]: ********************* STARTED ETL JOB ***************************
+2024-04-03 22:35:28,215 [INFO]: *****************************************************************
+2024-04-03 22:35:28,215 [INFO]: Host : https://uptownie.com
+2024-04-03 22:35:28,216 [INFO]: Processing Started: new.csv
+2024-04-03 22:35:28,749 [INFO]: Number of Columns: 21
+2024-04-03 22:35:28,749 [INFO]: Number of Rows: 7592
+2024-04-03 22:35:28,805 [INFO]: Loading data into database ....................
+2024-04-03 22:35:28,944 [ERROR]: (psycopg2.errors.FeatureNotSupported) cross-database references are not implemented: "stg.stg.shopify_track_new"
+
+[SQL: TRUNCATE TABLE stg.stg.shopify_track_new]
+(Background on this error at: https://sqlalche.me/e/20/tw8g)
+2024-04-03 22:35:28,946 [INFO]: Processing Started: old.csv
+2024-04-03 22:35:28,989 [INFO]: Number of Columns: 21
+2024-04-03 22:35:28,990 [INFO]: Number of Rows: 8
+2024-04-03 22:35:28,991 [INFO]: Loading data into database ....................
+2024-04-03 22:35:28,994 [ERROR]: (psycopg2.errors.FeatureNotSupported) cross-database references are not implemented: "stg.stg.shopify_track_old"
+
+[SQL: TRUNCATE TABLE stg.stg.shopify_track_old]
+(Background on this error at: https://sqlalche.me/e/20/tw8g)
+2024-04-03 22:35:29,015 [INFO]: Executed: INSERT INTO shopify_track (id, host, shopifyid, variantid, sku, collection1, collection2, collection3, collection4, collection5, tags, 
+        producttitle, varianttitle, price, compareatprice, instock, producturl, imageurl, 
+        description, descriptionnohtml, updatedat)
+SELECT 
+        s.id::uuid, s.host, s.shopifyid, s.variantid, s.sku, s.collection1, s.collection2, s.collection3, s.collection4, s.collection5, s.tags, 
+        s.producttitle, s.varianttitle, s.price, s.compareatprice, s.instock, s.producturl, s.imageurl, s.description, 
+        s.descriptionnohtml, s.updatedat
+FROM stg.shopify_track_new s
+WHERE NOT EXISTS ( SELECT 1 FROM stg.shopify_track_old d WHERE (s.host = d.host AND s.shopifyid = d.shopifyid AND s.variantid = d.variantid));
+2024-04-03 22:35:29,017 [ERROR]: (psycopg2.ProgrammingError) can't execute an empty query
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2024-04-03 22:35:29,017 [INFO]: ********************* ENDED ETL JOB ***************************
+2024-04-03 22:35:29,017 [INFO]: ***************************************************************
+2024-04-03 22:36:33,445 [INFO]: ********************* STARTED ETL JOB ***************************
+2024-04-03 22:36:33,445 [INFO]: *****************************************************************
+2024-04-03 22:36:33,446 [INFO]: Host : https://uptownie.com
+2024-04-03 22:36:33,446 [INFO]: Processing Started: new.csv
+2024-04-03 22:36:33,592 [INFO]: Number of Columns: 21
+2024-04-03 22:36:33,592 [INFO]: Number of Rows: 7592
+2024-04-03 22:36:33,597 [INFO]: Loading data into database ....................
+2024-04-03 22:36:33,646 [ERROR]: (psycopg2.errors.FeatureNotSupported) cross-database references are not implemented: "stg.stg.shopify_track_new"
+
+[SQL: TRUNCATE TABLE stg.stg.shopify_track_new]
+(Background on this error at: https://sqlalche.me/e/20/tw8g)
+2024-04-03 22:36:33,646 [INFO]: Processing Started: old.csv
+2024-04-03 22:36:33,652 [INFO]: Number of Columns: 21
+2024-04-03 22:36:33,652 [INFO]: Number of Rows: 8
+2024-04-03 22:36:33,652 [INFO]: Loading data into database ....................
+2024-04-03 22:36:33,654 [ERROR]: (psycopg2.errors.FeatureNotSupported) cross-database references are not implemented: "stg.stg.shopify_track_old"
+
+[SQL: TRUNCATE TABLE stg.stg.shopify_track_old]
+(Background on this error at: https://sqlalche.me/e/20/tw8g)
+2024-04-03 22:36:33,658 [INFO]: Executed: INSERT INTO shopify_track (id, host, shopifyid, variantid, sku, collection1, collection2, collection3, collection4, collection5, tags, 
+        producttitle, varianttitle, price, compareatprice, instock, producturl, imageurl, 
+        description, descriptionnohtml, updatedat)
+SELECT 
+        s.id::uuid, s.host, s.shopifyid, s.variantid, s.sku, s.collection1, s.collection2, s.collection3, s.collection4, s.collection5, s.tags, 
+        s.producttitle, s.varianttitle, s.price, s.compareatprice, s.instock, s.producturl, s.imageurl, s.description, 
+        s.descriptionnohtml, s.updatedat
+FROM stg.shopify_track_new s
+WHERE NOT EXISTS ( SELECT 1 FROM stg.shopify_track_old d WHERE (s.host = d.host AND s.shopifyid = d.shopifyid AND s.variantid = d.variantid));
+2024-04-03 22:36:33,659 [ERROR]: (psycopg2.ProgrammingError) can't execute an empty query
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2024-04-03 22:36:33,659 [INFO]: ********************* ENDED ETL JOB ***************************
+2024-04-03 22:36:33,659 [INFO]: ***************************************************************
+2024-04-03 22:36:49,234 [INFO]: ********************* STARTED ETL JOB ***************************
+2024-04-03 22:36:49,234 [INFO]: *****************************************************************
+2024-04-03 22:36:49,235 [INFO]: Host : https://uptownie.com
+2024-04-03 22:36:49,235 [INFO]: Processing Started: new.csv
+2024-04-03 22:36:49,406 [INFO]: Number of Columns: 21
+2024-04-03 22:36:49,406 [INFO]: Number of Rows: 7592
+2024-04-03 22:36:49,411 [INFO]: Loading data into database ....................
+2024-04-03 22:36:49,577 [ERROR]: (psycopg2.errors.FeatureNotSupported) cross-database references are not implemented: "stg.stg.shopify_track_new"
+
+[SQL: TRUNCATE TABLE stg.stg.shopify_track_new]
+(Background on this error at: https://sqlalche.me/e/20/tw8g)
+2024-04-03 22:36:49,577 [INFO]: Processing Started: old.csv
+2024-04-03 22:36:49,582 [INFO]: Number of Columns: 21
+2024-04-03 22:36:49,582 [INFO]: Number of Rows: 8
+2024-04-03 22:36:49,583 [INFO]: Loading data into database ....................
+2024-04-03 22:36:49,585 [ERROR]: (psycopg2.errors.FeatureNotSupported) cross-database references are not implemented: "stg.stg.shopify_track_old"
+
+[SQL: TRUNCATE TABLE stg.stg.shopify_track_old]
+(Background on this error at: https://sqlalche.me/e/20/tw8g)
+2024-04-03 22:36:49,589 [INFO]: Executed: INSERT INTO shopify_track (id, host, shopifyid, variantid, sku, collection1, collection2, collection3, collection4, collection5, tags, 
+        producttitle, varianttitle, price, compareatprice, instock, producturl, imageurl, 
+        description, descriptionnohtml, updatedat)
+SELECT 
+        s.id::uuid, s.host, s.shopifyid, s.variantid, s.sku, s.collection1, s.collection2, s.collection3, s.collection4, s.collection5, s.tags, 
+        s.producttitle, s.varianttitle, s.price, s.compareatprice, s.instock, s.producturl, s.imageurl, s.description, 
+        s.descriptionnohtml, s.updatedat
+FROM stg.shopify_track_new s
+WHERE NOT EXISTS ( SELECT 1 FROM stg.shopify_track_old d WHERE (s.host = d.host AND s.shopifyid = d.shopifyid AND s.variantid = d.variantid));
+2024-04-03 22:36:49,590 [ERROR]: (psycopg2.ProgrammingError) can't execute an empty query
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2024-04-03 22:36:49,591 [INFO]: ********************* ENDED ETL JOB ***************************
+2024-04-03 22:36:49,591 [INFO]: ***************************************************************
+2024-04-03 22:38:47,791 [INFO]: ********************* STARTED ETL JOB ***************************
+2024-04-03 22:38:47,791 [INFO]: *****************************************************************
+2024-04-03 22:38:47,792 [INFO]: Host : https://uptownie.com
+2024-04-03 22:38:47,792 [INFO]: Processing Started: new.csv
+2024-04-03 22:38:47,939 [INFO]: Number of Columns: 21
+2024-04-03 22:38:47,940 [INFO]: Number of Rows: 7592
+2024-04-03 22:38:47,944 [INFO]: Loading data into database ....................
+2024-04-03 22:38:48,233 [INFO]: Executed: TRUNCATE TABLE stg.shopify_track_new
+2024-04-03 22:38:50,131 [INFO]: Data imported into staging shopify_track_new table
+2024-04-03 22:38:50,131 [INFO]: Processing Completed: new.csv
+2024-04-03 22:38:50,132 [INFO]: Processing Started: old.csv
+2024-04-03 22:38:50,137 [INFO]: Number of Columns: 21
+2024-04-03 22:38:50,137 [INFO]: Number of Rows: 8
+2024-04-03 22:38:50,139 [INFO]: Loading data into database ....................
+2024-04-03 22:38:50,204 [INFO]: Executed: TRUNCATE TABLE stg.shopify_track_old
+2024-04-03 22:38:50,231 [INFO]: Data imported into staging shopify_track_old table
+2024-04-03 22:38:50,232 [INFO]: Processing Completed: old.csv
+2024-04-03 22:38:55,334 [INFO]: Executed: INSERT INTO shopify_track (id, host, shopifyid, variantid, sku, collection1, collection2, collection3, collection4, collection5, tags, 
+        producttitle, varianttitle, price, compareatprice, instock, producturl, imageurl, 
+        description, descriptionnohtml, updatedat)
+SELECT 
+        s.id::uuid, s.host, s.shopifyid, s.variantid, s.sku, s.collection1, s.collection2, s.collection3, s.collection4, s.collection5, s.tags, 
+        s.producttitle, s.varianttitle, s.price, s.compareatprice, s.instock, s.producturl, s.imageurl, s.description, 
+        s.descriptionnohtml, s.updatedat
+FROM stg.shopify_track_new s
+WHERE NOT EXISTS ( SELECT 1 FROM stg.shopify_track_old d WHERE (s.host = d.host AND s.shopifyid = d.shopifyid AND s.variantid = d.variantid));
+2024-04-03 22:38:55,336 [ERROR]: (psycopg2.ProgrammingError) can't execute an empty query
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2024-04-03 22:38:55,336 [INFO]: ********************* ENDED ETL JOB ***************************
+2024-04-03 22:38:55,336 [INFO]: ***************************************************************
+2024-04-03 22:42:02,847 [INFO]: ********************* STARTED ETL JOB ***************************
+2024-04-03 22:42:02,847 [INFO]: *****************************************************************
+2024-04-03 22:42:02,849 [INFO]: Host : https://uptownie.com
+2024-04-03 22:42:02,849 [INFO]: Processing Started: new.csv
+2024-04-03 22:42:02,994 [INFO]: Number of Columns: 21
+2024-04-03 22:42:02,994 [INFO]: Number of Rows: 7592
+2024-04-03 22:42:02,999 [INFO]: Loading data into database ....................
+2024-04-03 22:42:03,453 [INFO]: Executed: TRUNCATE TABLE stg.shopify_track_new
+2024-04-03 22:42:04,979 [INFO]: Data imported into staging shopify_track_new table
+2024-04-03 22:42:04,979 [INFO]: Processing Completed: new.csv
+2024-04-03 22:42:04,979 [INFO]: Processing Started: old.csv
+2024-04-03 22:42:04,984 [INFO]: Number of Columns: 21
+2024-04-03 22:42:04,984 [INFO]: Number of Rows: 8
+2024-04-03 22:42:04,985 [INFO]: Loading data into database ....................
+2024-04-03 22:42:05,050 [INFO]: Executed: TRUNCATE TABLE stg.shopify_track_old
+2024-04-03 22:42:05,061 [INFO]: Data imported into staging shopify_track_old table
+2024-04-03 22:42:05,061 [INFO]: Processing Completed: old.csv
+2024-04-03 22:42:11,158 [INFO]: Executed: INSERT INTO shopify_track (id, host, shopifyid, variantid, sku, collection1, collection2, collection3, collection4, collection5, tags, 
+        producttitle, varianttitle, price, compareatprice, instock, producturl, imageurl, 
+        description, descriptionnohtml, updatedat)
+SELECT 
+        s.id::uuid, s.host, s.shopifyid, s.variantid, s.sku, s.collection1, s.collection2, s.collection3, s.collection4, s.collection5, s.tags, 
+        s.producttitle, s.varianttitle, s.price, s.compareatprice, s.instock, s.producturl, s.imageurl, s.description, 
+        s.descriptionnohtml, s.updatedat
+FROM stg.shopify_track_new s
+WHERE NOT EXISTS ( SELECT 1 FROM stg.shopify_track_old d WHERE (s.host = d.host AND s.shopifyid = d.shopifyid AND s.variantid = d.variantid));
+2024-04-03 22:42:11,224 [INFO]: Executed: UPDATE shopify_track
+SET 
+sku = s.sku, 
+collection1 = s.collection1, 
+collection2 = s.collection2, 
+collection3 = s.collection3, 
+collection4 = s.collection4, 
+collection5 = s.collection5, 
+tags = s.tags, 
+producttitle = s.producttitle, 
+varianttitle = s.varianttitle, 
+price = s.price, 
+compareatprice = s.compareatprice, 
+instock = s.instock, 
+producturl = s.producturl, 
+imageurl = s.imageurl, 
+description = s.description, 
+descriptionnohtml = s.descriptionnohtml, 
+updatedat = s.updatedat
+FROM stg.shopify_track_new AS s
+INNER JOIN stg.shopify_track_old AS d 
+	ON (s.host = d.host AND s.shopifyid = d.shopifyid AND s.variantid = d.variantid);
+2024-04-03 22:42:11,237 [INFO]: Executed: DELETE FROM shopify_track AS s
+WHERE  EXISTS ( SELECT 1 FROM (
+	SELECT o.*
+		FROM stg.shopify_track_old AS o
+		WHERE NOT EXISTS (SELECT 1 FROM stg.shopify_track_new AS n 
+						WHERE o.host = n.host AND o.shopifyid = n.shopifyid AND o.variantid = n.variantid)
+) d WHERE (s.host = d.host AND s.shopifyid = d.shopifyid AND s.variantid = d.variantid));
+2024-04-03 22:42:11,238 [ERROR]: Not an executable object: "INSERT INTO sales (url, date, sales) VALUES ('https://uptownie.com', CURRENT_DATE, 1) ON CONFLICT (url, date) DO UPDATE SET sales = sales.sales + 1"
+2024-04-03 22:42:11,238 [INFO]: ********************* ENDED ETL JOB ***************************
+2024-04-03 22:42:11,238 [INFO]: ***************************************************************
+2024-04-03 22:44:48,880 [INFO]: ********************* STARTED ETL JOB ***************************
+2024-04-03 22:44:48,880 [INFO]: *****************************************************************
+2024-04-03 22:44:48,880 [INFO]: Host : https://uptownie.com
+2024-04-03 22:44:48,881 [INFO]: Processing Started: new.csv
+2024-04-03 22:44:49,031 [INFO]: Number of Columns: 21
+2024-04-03 22:44:49,031 [INFO]: Number of Rows: 7592
+2024-04-03 22:44:49,035 [INFO]: Loading data into database ....................
+2024-04-03 22:44:49,245 [INFO]: Executed: TRUNCATE TABLE stg.shopify_track_new
+2024-04-03 22:44:50,939 [INFO]: Data imported into staging shopify_track_new table
+2024-04-03 22:44:50,939 [INFO]: Processing Completed: new.csv
+2024-04-03 22:44:50,940 [INFO]: Processing Started: old.csv
+2024-04-03 22:44:50,944 [INFO]: Number of Columns: 21
+2024-04-03 22:44:50,944 [INFO]: Number of Rows: 8
+2024-04-03 22:44:50,945 [INFO]: Loading data into database ....................
+2024-04-03 22:44:51,035 [INFO]: Executed: TRUNCATE TABLE stg.shopify_track_old
+2024-04-03 22:44:51,054 [INFO]: Data imported into staging shopify_track_old table
+2024-04-03 22:44:51,054 [INFO]: Processing Completed: old.csv
+2024-04-03 22:44:56,367 [INFO]: Executed: INSERT INTO shopify_track (id, host, shopifyid, variantid, sku, collection1, collection2, collection3, collection4, collection5, tags, 
+        producttitle, varianttitle, price, compareatprice, instock, producturl, imageurl, 
+        description, descriptionnohtml, updatedat)
+SELECT 
+        s.id::uuid, s.host, s.shopifyid, s.variantid, s.sku, s.collection1, s.collection2, s.collection3, s.collection4, s.collection5, s.tags, 
+        s.producttitle, s.varianttitle, s.price, s.compareatprice, s.instock, s.producturl, s.imageurl, s.description, 
+        s.descriptionnohtml, s.updatedat
+FROM stg.shopify_track_new s
+WHERE NOT EXISTS ( SELECT 1 FROM stg.shopify_track_old d WHERE (s.host = d.host AND s.shopifyid = d.shopifyid AND s.variantid = d.variantid));
+2024-04-03 22:44:56,373 [INFO]: Executed: UPDATE shopify_track
+SET 
+sku = s.sku, 
+collection1 = s.collection1, 
+collection2 = s.collection2, 
+collection3 = s.collection3, 
+collection4 = s.collection4, 
+collection5 = s.collection5, 
+tags = s.tags, 
+producttitle = s.producttitle, 
+varianttitle = s.varianttitle, 
+price = s.price, 
+compareatprice = s.compareatprice, 
+instock = s.instock, 
+producturl = s.producturl, 
+imageurl = s.imageurl, 
+description = s.description, 
+descriptionnohtml = s.descriptionnohtml, 
+updatedat = s.updatedat
+FROM stg.shopify_track_new AS s
+INNER JOIN stg.shopify_track_old AS d 
+	ON (s.host = d.host AND s.shopifyid = d.shopifyid AND s.variantid = d.variantid);
+2024-04-03 22:44:56,375 [INFO]: Executed: DELETE FROM shopify_track AS s
+WHERE  EXISTS ( SELECT 1 FROM (
+	SELECT o.*
+		FROM stg.shopify_track_old AS o
+		WHERE NOT EXISTS (SELECT 1 FROM stg.shopify_track_new AS n 
+						WHERE o.host = n.host AND o.shopifyid = n.shopifyid AND o.variantid = n.variantid)
+) d WHERE (s.host = d.host AND s.shopifyid = d.shopifyid AND s.variantid = d.variantid));
+2024-04-03 22:44:56,429 [INFO]: Executed: INSERT INTO sales (url, date, sales) VALUES ('https://uptownie.com', CURRENT_DATE, 1) ON CONFLICT (url, date) DO UPDATE SET sales = sales.sales + 1
+2024-04-03 23:38:12,192 [INFO]: ********************* STARTED ETL JOB ***************************
+2024-04-03 23:38:12,192 [INFO]: *****************************************************************
+2024-04-03 23:38:12,194 [INFO]: Host : https://uptownie.com
+2024-04-03 23:38:12,195 [INFO]: Processing Started: new.csv
+2024-04-03 23:38:12,548 [INFO]: Number of Columns: 21
+2024-04-03 23:38:12,548 [INFO]: Number of Rows: 7592
+2024-04-03 23:38:12,577 [INFO]: Loading data into database ....................
+2024-04-03 23:38:13,055 [INFO]: Executed: TRUNCATE TABLE stg.shopify_track_new
+2024-04-03 23:38:14,328 [INFO]: Data imported into staging shopify_track_new table
+2024-04-03 23:38:14,329 [INFO]: Processing Completed: new.csv
+2024-04-03 23:38:14,329 [INFO]: Processing Started: old.csv
+2024-04-03 23:38:14,334 [INFO]: Number of Columns: 21
+2024-04-03 23:38:14,334 [INFO]: Number of Rows: 8
+2024-04-03 23:38:14,335 [INFO]: Loading data into database ....................
+2024-04-03 23:38:14,409 [INFO]: Executed: TRUNCATE TABLE stg.shopify_track_old
+2024-04-03 23:38:14,433 [INFO]: Data imported into staging shopify_track_old table
+2024-04-03 23:38:14,433 [INFO]: Processing Completed: old.csv
+2024-04-03 23:38:19,258 [INFO]: Executed: INSERT INTO shopify_track (id, host, shopifyid, variantid, sku, collection1, collection2, collection3, collection4, collection5, tags, 
+        producttitle, varianttitle, price, compareatprice, instock, producturl, imageurl, 
+        description, descriptionnohtml, updatedat)
+SELECT 
+        s.id::uuid, s.host, s.shopifyid, s.variantid, s.sku, s.collection1, s.collection2, s.collection3, s.collection4, s.collection5, s.tags, 
+        s.producttitle, s.varianttitle, s.price, s.compareatprice, s.instock, s.producturl, s.imageurl, s.description, 
+        s.descriptionnohtml, s.updatedat
+FROM stg.shopify_track_new s
+WHERE NOT EXISTS ( SELECT 1 FROM stg.shopify_track_old d WHERE (s.host = d.host AND s.shopifyid = d.shopifyid AND s.variantid = d.variantid));
+2024-04-03 23:38:19,267 [INFO]: Executed: UPDATE shopify_track
+SET 
+sku = s.sku, 
+collection1 = s.collection1, 
+collection2 = s.collection2, 
+collection3 = s.collection3, 
+collection4 = s.collection4, 
+collection5 = s.collection5, 
+tags = s.tags, 
+producttitle = s.producttitle, 
+varianttitle = s.varianttitle, 
+price = s.price, 
+compareatprice = s.compareatprice, 
+instock = s.instock, 
+producturl = s.producturl, 
+imageurl = s.imageurl, 
+description = s.description, 
+descriptionnohtml = s.descriptionnohtml, 
+updatedat = s.updatedat
+FROM stg.shopify_track_new AS s
+INNER JOIN stg.shopify_track_old AS d 
+	ON (s.host = d.host AND s.shopifyid = d.shopifyid AND s.variantid = d.variantid);
+2024-04-03 23:38:19,270 [INFO]: Executed: DELETE FROM shopify_track AS s
+WHERE  EXISTS ( SELECT 1 FROM (
+	SELECT o.*
+		FROM stg.shopify_track_old AS o
+		WHERE NOT EXISTS (SELECT 1 FROM stg.shopify_track_new AS n 
+						WHERE o.host = n.host AND o.shopifyid = n.shopifyid AND o.variantid = n.variantid)
+) d WHERE (s.host = d.host AND s.shopifyid = d.shopifyid AND s.variantid = d.variantid));
+2024-04-03 23:38:19,337 [INFO]: Executed: INSERT INTO sales (url, date, sales) VALUES ('https://uptownie.com', CURRENT_DATE, 1) ON CONFLICT (url, date) DO UPDATE SET sales = sales.sales + 1
+2024-04-03 23:48:01,245 [INFO]: ********************* STARTED ETL JOB ***************************
+2024-04-03 23:48:01,245 [INFO]: *****************************************************************
+2024-04-03 23:48:01,246 [INFO]: Host : https://uptownie.com
+2024-04-03 23:48:01,246 [INFO]: Processing Started: new.csv
+2024-04-03 23:48:01,395 [INFO]: Number of Columns: 21
+2024-04-03 23:48:01,395 [INFO]: Number of Rows: 7592
+2024-04-03 23:48:01,400 [INFO]: Loading data into database ....................
+2024-04-03 23:48:01,547 [INFO]: Executed: TRUNCATE TABLE stg.shopify_track_new
+2024-04-03 23:48:02,788 [INFO]: Data imported into staging shopify_track_new table
+2024-04-03 23:48:02,788 [INFO]: Processing Completed: new.csv
+2024-04-03 23:48:02,789 [INFO]: Processing Started: old.csv
+2024-04-03 23:48:02,794 [INFO]: Number of Columns: 21
+2024-04-03 23:48:02,794 [INFO]: Number of Rows: 8
+2024-04-03 23:48:02,794 [INFO]: Loading data into database ....................
+2024-04-03 23:48:02,861 [INFO]: Executed: TRUNCATE TABLE stg.shopify_track_old
+2024-04-03 23:48:02,879 [INFO]: Data imported into staging shopify_track_old table
+2024-04-03 23:48:02,879 [INFO]: Processing Completed: old.csv
+2024-04-03 23:48:07,506 [INFO]: Executed: INSERT INTO shopify_track (id, host, shopifyid, variantid, sku, collection1, collection2, collection3, collection4, collection5, tags, 
+        producttitle, varianttitle, price, compareatprice, instock, producturl, imageurl, 
+        description, descriptionnohtml, updatedat)
+SELECT 
+        s.id::uuid, s.host, s.shopifyid, s.variantid, s.sku, s.collection1, s.collection2, s.collection3, s.collection4, s.collection5, s.tags, 
+        s.producttitle, s.varianttitle, s.price, s.compareatprice, s.instock, s.producturl, s.imageurl, s.description, 
+        s.descriptionnohtml, s.updatedat
+FROM stg.shopify_track_new s
+WHERE NOT EXISTS ( SELECT 1 FROM stg.shopify_track_old d WHERE (s.host = d.host AND s.shopifyid = d.shopifyid AND s.variantid = d.variantid));
+2024-04-03 23:48:07,512 [INFO]: Executed: UPDATE shopify_track
+SET 
+sku = s.sku, 
+collection1 = s.collection1, 
+collection2 = s.collection2, 
+collection3 = s.collection3, 
+collection4 = s.collection4, 
+collection5 = s.collection5, 
+tags = s.tags, 
+producttitle = s.producttitle, 
+varianttitle = s.varianttitle, 
+price = s.price, 
+compareatprice = s.compareatprice, 
+instock = s.instock, 
+producturl = s.producturl, 
+imageurl = s.imageurl, 
+description = s.description, 
+descriptionnohtml = s.descriptionnohtml, 
+updatedat = s.updatedat
+FROM stg.shopify_track_new AS s
+INNER JOIN stg.shopify_track_old AS d 
+	ON (s.host = d.host AND s.shopifyid = d.shopifyid AND s.variantid = d.variantid);
+2024-04-03 23:48:07,516 [INFO]: Executed: DELETE FROM shopify_track AS s
+WHERE  EXISTS ( SELECT 1 FROM (
+	SELECT o.*
+		FROM stg.shopify_track_old AS o
+		WHERE NOT EXISTS (SELECT 1 FROM stg.shopify_track_new AS n 
+						WHERE o.host = n.host AND o.shopifyid = n.shopifyid AND o.variantid = n.variantid)
+) d WHERE (s.host = d.host AND s.shopifyid = d.shopifyid AND s.variantid = d.variantid));
+2024-04-03 23:48:07,520 [INFO]: Executed: INSERT INTO sales (url, date, sales) VALUES ('https://uptownie.com', CURRENT_DATE, 1) ON CONFLICT (url, date) DO UPDATE SET sales = sales.sales + 1
+2024-04-03 23:48:15,911 [INFO]: ********************* STARTED ETL JOB ***************************
+2024-04-03 23:48:15,911 [INFO]: *****************************************************************
+2024-04-03 23:48:15,912 [INFO]: Host : https://uptownie.com
+2024-04-03 23:48:15,912 [INFO]: Processing Started: new.csv
+2024-04-03 23:48:16,068 [INFO]: Number of Columns: 21
+2024-04-03 23:48:16,068 [INFO]: Number of Rows: 7592
+2024-04-03 23:48:16,073 [INFO]: Loading data into database ....................
+2024-04-03 23:48:16,264 [INFO]: Executed: TRUNCATE TABLE stg.shopify_track_new
+2024-04-03 23:48:17,506 [INFO]: Data imported into staging shopify_track_new table
+2024-04-03 23:48:17,506 [INFO]: Processing Completed: new.csv
+2024-04-03 23:48:17,506 [INFO]: Processing Started: old.csv
+2024-04-03 23:48:17,511 [INFO]: Number of Columns: 21
+2024-04-03 23:48:17,511 [INFO]: Number of Rows: 8
+2024-04-03 23:48:17,512 [INFO]: Loading data into database ....................
+2024-04-03 23:48:17,584 [INFO]: Executed: TRUNCATE TABLE stg.shopify_track_old
+2024-04-03 23:48:17,593 [INFO]: Data imported into staging shopify_track_old table
+2024-04-03 23:48:17,593 [INFO]: Processing Completed: old.csv
+2024-04-03 23:48:21,867 [INFO]: Executed: INSERT INTO shopify_track (id, host, shopifyid, variantid, sku, collection1, collection2, collection3, collection4, collection5, tags, 
+        producttitle, varianttitle, price, compareatprice, instock, producturl, imageurl, 
+        description, descriptionnohtml, updatedat)
+SELECT 
+        s.id::uuid, s.host, s.shopifyid, s.variantid, s.sku, s.collection1, s.collection2, s.collection3, s.collection4, s.collection5, s.tags, 
+        s.producttitle, s.varianttitle, s.price, s.compareatprice, s.instock, s.producturl, s.imageurl, s.description, 
+        s.descriptionnohtml, s.updatedat
+FROM stg.shopify_track_new s
+WHERE NOT EXISTS ( SELECT 1 FROM stg.shopify_track_old d WHERE (s.host = d.host AND s.shopifyid = d.shopifyid AND s.variantid = d.variantid));
+2024-04-03 23:48:21,908 [INFO]: Executed: UPDATE shopify_track
+SET 
+sku = s.sku, 
+collection1 = s.collection1, 
+collection2 = s.collection2, 
+collection3 = s.collection3, 
+collection4 = s.collection4, 
+collection5 = s.collection5, 
+tags = s.tags, 
+producttitle = s.producttitle, 
+varianttitle = s.varianttitle, 
+price = s.price, 
+compareatprice = s.compareatprice, 
+instock = s.instock, 
+producturl = s.producturl, 
+imageurl = s.imageurl, 
+description = s.description, 
+descriptionnohtml = s.descriptionnohtml, 
+updatedat = s.updatedat
+FROM stg.shopify_track_new AS s
+INNER JOIN stg.shopify_track_old AS d 
+	ON (s.host = d.host AND s.shopifyid = d.shopifyid AND s.variantid = d.variantid);
+2024-04-03 23:48:21,912 [INFO]: Executed: DELETE FROM shopify_track AS s
+WHERE  EXISTS ( SELECT 1 FROM (
+	SELECT o.*
+		FROM stg.shopify_track_old AS o
+		WHERE NOT EXISTS (SELECT 1 FROM stg.shopify_track_new AS n 
+						WHERE o.host = n.host AND o.shopifyid = n.shopifyid AND o.variantid = n.variantid)
+) d WHERE (s.host = d.host AND s.shopifyid = d.shopifyid AND s.variantid = d.variantid));
+2024-04-03 23:48:21,916 [INFO]: Executed: INSERT INTO sales (url, date, sales) VALUES ('https://uptownie.com', CURRENT_DATE, 1) ON CONFLICT (url, date) DO UPDATE SET sales = sales.sales + 1

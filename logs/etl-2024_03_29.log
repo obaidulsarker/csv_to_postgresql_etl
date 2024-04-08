@@ -1,0 +1,94 @@
+2024-03-29 20:13:48,624 [INFO]: ********************* STARTED ETL JOB ***************************
+2024-03-29 20:13:48,624 [INFO]: *****************************************************************
+2024-03-29 20:13:48,626 [INFO]: Processing Started: all.csv
+2024-03-29 20:13:49,254 [INFO]: Host : https://uptownie.com
+2024-03-29 20:15:15,081 [INFO]: ********************* STARTED ETL JOB ***************************
+2024-03-29 20:15:15,081 [INFO]: *****************************************************************
+2024-03-29 20:15:15,082 [INFO]: Processing Started: all.csv
+2024-03-29 20:15:15,224 [INFO]: Host : https://uptownie.com
+2024-03-29 20:15:15,224 [INFO]: Number of Columns: 21
+2024-03-29 20:15:15,224 [INFO]: Number of Rows: 7592
+2024-03-29 20:15:15,266 [INFO]: Loading data into database ....................
+2024-03-29 20:15:15,556 [INFO]: Executed: TRUNCATE TABLE stg.shopify_track
+2024-03-29 20:15:16,854 [INFO]: Data imported into staging shopify_track table
+2024-03-29 20:15:21,017 [INFO]: Executed:    INSERT INTO shopify_track (id, host, shopifyid, variantid, sku, collection1, collection2, collection3, collection4, collection5, tags, 
+        producttitle, varianttitle, price, compareatprice, instock, producturl, imageurl, 
+        description, descriptionnohtml, updatedat)
+    SELECT 
+        s.id::uuid, s.host, s.shopifyid, s.variantid, s.sku, s.collection1, s.collection2, s.collection3, s.collection4, s.collection5, s.tags, 
+        s.producttitle, s.varianttitle, s.price, s.compareatprice, s.instock, s.producturl, s.imageurl, s.description, 
+        s.descriptionnohtml, s.updatedat
+    FROM 
+        stg.shopify_track s
+	WHERE NOT EXISTS ( SELECT 1 FROM shopify_track d WHERE (s.host = d.host AND s.shopifyid = d.shopifyid AND s.variantid = d.variantid));
+2024-03-29 20:15:22,197 [INFO]: Executed: UPDATE shopify_track AS d 
+SET 
+sku = s.sku, 
+collection1 = s.collection1, 
+collection2 = s.collection2, 
+collection3 = s.collection3, 
+collection4 = s.collection4, 
+collection5 = s.collection5, 
+tags = s.tags, 
+producttitle = s.producttitle, 
+varianttitle = s.varianttitle, 
+price = s.price, 
+compareatprice = s.compareatprice, 
+instock = s.instock, 
+producturl = s.producturl, 
+imageurl = s.imageurl, 
+description = s.description, 
+descriptionnohtml = s.descriptionnohtml, 
+updatedat = s.updatedat
+FROM stg.shopify_track AS s
+WHERE s.host = d.host AND s.shopifyid = d.shopifyid AND s.variantid = d.variantid;
+2024-03-29 20:15:22,221 [INFO]: Executed: DELETE FROM shopify_track AS s
+WHERE NOT EXISTS ( SELECT 1 FROM stg.shopify_track d WHERE (s.host = d.host AND s.shopifyid = d.shopifyid AND s.variantid = d.variantid));
+2024-03-29 20:15:22,222 [INFO]: File D:\python-project\csv_to_pg\data\all.csv is moved to D:\python-project\csv_to_pg\data_archive\2024_03_29_20_15_15-all.csv
+2024-03-29 20:15:22,222 [INFO]: Processing Completed: all.csv
+2024-03-29 20:15:22,223 [INFO]: ********************* ENDED ETL JOB ***************************
+2024-03-29 20:15:22,223 [INFO]: ***************************************************************
+2024-03-29 20:15:22,223 [INFO]: Processing Started: old.csv
+2024-03-29 20:15:22,263 [INFO]: Host : https://83fec9-dd.myshopify.com
+2024-03-29 20:15:22,263 [INFO]: Number of Columns: 21
+2024-03-29 20:15:22,263 [INFO]: Number of Rows: 8
+2024-03-29 20:15:22,264 [INFO]: Loading data into database ....................
+2024-03-29 20:15:22,525 [INFO]: Executed: TRUNCATE TABLE stg.shopify_track
+2024-03-29 20:15:22,543 [INFO]: Data imported into staging shopify_track table
+2024-03-29 20:15:22,548 [INFO]: Executed:    INSERT INTO shopify_track (id, host, shopifyid, variantid, sku, collection1, collection2, collection3, collection4, collection5, tags, 
+        producttitle, varianttitle, price, compareatprice, instock, producturl, imageurl, 
+        description, descriptionnohtml, updatedat)
+    SELECT 
+        s.id::uuid, s.host, s.shopifyid, s.variantid, s.sku, s.collection1, s.collection2, s.collection3, s.collection4, s.collection5, s.tags, 
+        s.producttitle, s.varianttitle, s.price, s.compareatprice, s.instock, s.producturl, s.imageurl, s.description, 
+        s.descriptionnohtml, s.updatedat
+    FROM 
+        stg.shopify_track s
+	WHERE NOT EXISTS ( SELECT 1 FROM shopify_track d WHERE (s.host = d.host AND s.shopifyid = d.shopifyid AND s.variantid = d.variantid));
+2024-03-29 20:15:22,552 [INFO]: Executed: UPDATE shopify_track AS d 
+SET 
+sku = s.sku, 
+collection1 = s.collection1, 
+collection2 = s.collection2, 
+collection3 = s.collection3, 
+collection4 = s.collection4, 
+collection5 = s.collection5, 
+tags = s.tags, 
+producttitle = s.producttitle, 
+varianttitle = s.varianttitle, 
+price = s.price, 
+compareatprice = s.compareatprice, 
+instock = s.instock, 
+producturl = s.producturl, 
+imageurl = s.imageurl, 
+description = s.description, 
+descriptionnohtml = s.descriptionnohtml, 
+updatedat = s.updatedat
+FROM stg.shopify_track AS s
+WHERE s.host = d.host AND s.shopifyid = d.shopifyid AND s.variantid = d.variantid;
+2024-03-29 20:15:26,392 [INFO]: Executed: DELETE FROM shopify_track AS s
+WHERE NOT EXISTS ( SELECT 1 FROM stg.shopify_track d WHERE (s.host = d.host AND s.shopifyid = d.shopifyid AND s.variantid = d.variantid));
+2024-03-29 20:15:26,393 [INFO]: File D:\python-project\csv_to_pg\data\old.csv is moved to D:\python-project\csv_to_pg\data_archive\2024_03_29_20_15_15-old.csv
+2024-03-29 20:15:26,393 [INFO]: Processing Completed: old.csv
+2024-03-29 20:15:26,394 [INFO]: ********************* ENDED ETL JOB ***************************
+2024-03-29 20:15:26,394 [INFO]: ***************************************************************

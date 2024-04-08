@@ -1,0 +1,139 @@
+Hi,
+
+ .\Scripts\python test2.py --old data\old.csv --new data\new.csv --host https://83fec9-dd.myshopify.com
+ 
+
+
+Need a python expert to optimize performance / speed of my current working python file.
+
+
+
+This Python script is designed to compare two CSV files containing product data and update a PostgreSQL database accordingly. Here's a breakdown of what the script does:
+
+
+
+Import necessary libraries: The script imports the required libraries, including pandas for data manipulation, psycopg2 for connecting to PostgreSQL, numpy for numerical operations, argparse for command-line argument parsing, logging for logging messages, and datetime for working with date and time.
+Parse command-line arguments: The script uses argparse to parse command-line arguments, including the paths to the old and new CSV files, and the host URL to specify the source of the CSV data.
+Define database configuration: The script defines the database configuration for connecting to the PostgreSQL database.
+Define helper functions: The script defines several helper functions:
+preprocess_data: This function preprocesses the CSV data by converting column names to lowercase, handling missing values, converting the 'instock' column to a boolean, and cleaning the 'imageurl' column.
+datetime_str_diff_seconds: This function calculates the difference in seconds between two datetime strings.
+get_latest_updatedat: This function retrieves the maximum value of the 'updatedat' column from the new CSV file for a given host.
+log_change: This function logs changes (insertions, deletions, and updates) to the product_changes_log table in the database.
+log_sale: This function logs a sale for a given host if the 'updatedat' value in the new CSV file is newer than the old 'updatedat' value.
+Load and preprocess CSV data: The script loads the old and new CSV files using pandas and preprocesses the data using the preprocess_data function.
+Connect to the PostgreSQL database: The script establishes a connection to the PostgreSQL database using the provided configuration.
+Compare CSV files and update the database: The script performs the following operations:
+Identifies added, deleted, and updated products by comparing the old and new CSV files.
+Inserts new products into the host_track table.
+Deletes products from the host_track table using a temporary table.
+Updates existing products in the host_track table if there are any changes in the data.
+Logs changes (insertions, deletions, and updates) to the product_changes_log table.
+Logs a sale if the 'updatedat' value in the new CSV file is newer than the old 'updatedat' value and a sale has not been logged for the current run.
+Updates the 'updatedat' value in the host_track table for all products associated with the given host.
+Close the database connection: Finally, the script closes the database connection and logs a message indicating that the connection has been closed.
+In summary, this script is designed to keep a PostgreSQL database synchronized with product data from CSV files. It compares the old and new CSV files, identifies changes (additions, deletions, and updates), and updates the database accordingly while logging the changes and potential sales.
+
+
+
+My script is working perfectly right now, but it takes some time to run when we have 2 big CSV files ( 3000 lines or more ) , with a lot of changes to log or process.
+
+
+
+What I expect:
+1- write "IREAD" when applying for consideration
+2- you will have to optimize the script's performance. this includes : using batch SQL instead of single queries where needed, find a better way to process the CSV files when they're large.
+
+
+
+Right now, my script takes 4 min or so on CSV files with 7000 lines, where all lines need to be updated. I expect you to reduce this time to at MAX 1 min .
+
+
+
+I'll be providing:
+- the python script
+- some CSV files for testing
+
+
+
+I expect you to finish the work within 24 hours.
+
+
+
+Adding Products:
+The code identifies new products by comparing the new CSV file with the old CSV file based on the key columns ('host', 'shopifyid', 'variantid').
+If a product exists in the new CSV file but not in the old CSV file, it is considered an added product.
+The added products are inserted into the shopify_track table using an INSERT statement with the execute_values function from the psycopg2.extras module.
+The execute_values function is used to efficiently insert multiple rows into the database in a single execution.
+The code constructs a list of tuples containing the values to be inserted, where each tuple represents a row.
+The added_products DataFrame is modified by adding columns for 'change_type', 'field_changed', 'old_value', and 'new_value'.
+The 'change_type' is set to 'insert', 'field_changed' is set to 'Product Added', and 'old_value' and 'new_value' are set to None.
+The log_change function is called with 'insert' as the change type and the modified added_products DataFrame to log the insertion in the product_changes_log table.
+After inserting the added products, the 'updatedat' value for all products in the shopify_track table for the corresponding host is updated to the latest 'updatedat' value from the new CSV file.
+
+
+
+Comparing Products:
+The code compares the old and new CSV files based on the key columns ('host', 'shopifyid', 'variantid').
+The added_products DataFrame contains products present in the new CSV file but not in the old CSV file.
+The deleted_products DataFrame contains products present in the old CSV file but not in the new CSV file.
+The merged_df DataFrame is created by merging the new and old CSV files on the key columns, with the suffixes parameter used to differentiate between the old and new values.
+
+
+
+Deleting Products:
+The code identifies deleted products by comparing the old CSV file with the new CSV file based on the key columns ('host', 'shopifyid', 'variantid').
+If a product exists in the old CSV file but not in the new CSV file, it is considered a deleted product.
+The code creates a temporary table temp_deleted_products to store the rows to be deleted.
+The rows to be deleted are inserted into the temporary table using the execute_values function.
+The DELETE statement is executed to remove the rows from the shopify_track table that match the rows in the temporary table based on the key columns.
+The deleted_products DataFrame is modified by adding columns for 'change_type', 'field_changed', 'old_value', and 'new_value'.
+The 'change_type' is set to 'delete', 'field_changed' is set to 'Product Deleted', and 'old_value' and 'new_value' are set to None.
+The log_change function is called with 'delete' as the change type and the modified deleted_products DataFrame to log the deletion in the product_changes_log table.
+After deleting the products, the 'updatedat' value for all products in the shopify_track table for the corresponding host is updated to the latest 'updatedat' value from the new CSV file.
+
+
+
+Updating Products:
+The code identifies updated products by comparing the values of other columns (excluding 'updatedat') between the old and new CSV files.
+The merged_df DataFrame is used for this comparison.
+If any column value differs between the old and new CSV files for a product, it is considered an updated product.
+The code iterates over the rows in the merged_df DataFrame.
+For each row where a column value differs (except 'updatedat'), the mismatch_indices list is updated with the tuple of key column values for that row.
+The data_to_update list is populated with tuples containing the change details ('change_type', 'producturl', 'host', 'shopifyid', 'variantid', 'field_changed', 'old_value', 'new_value') for each column that has changed.
+After iterating over all rows, the update_df DataFrame is created from the data_to_update list.
+The log_change function is called with 'update' as the change type and the update_df DataFrame to log the updates in the product_changes_log table.
+The code then updates the corresponding rows in the shopify_track table with the new values for the columns that have changed.
+An UPDATE statement is constructed dynamically using the columns that have changed for each row.
+The UPDATE statement is executed with the new values and the key column values to identify the row to be updated.
+After updating the products, the 'updatedat' value for all products in the shopify_track table for the corresponding host is updated to the latest 'updatedat' value from the new CSV file.
+
+
+
+Logging Changes:
+The log_change function is responsible for logging changes (insertions, deletions, and updates) to the product_changes_log table.
+The function takes the change type ('insert', 'delete', or 'update') and a DataFrame containing the change details as input.
+For insertions and deletions, the function constructs a list of tuples from the DataFrame, where each tuple represents a row to be inserted into the product_changes_log table.
+The execute_values function is used to efficiently insert multiple rows into the product_changes_log table in a single execution.
+For updates, the function follows a similar approach but constructs the list of tuples differently, as the 'field_changed', 'old_value', and 'new_value' columns are present for each updated column.
+After inserting the changes into the product_changes_log table, the function commits the changes to the database.
+If the change type is not 'update' or if it is 'update' but the 'field_changed' is not 'updatedat', the any_change flag is set to True to indicate that a change other than 'updatedat' has occurred.
+
+
+
+Logging Sales:
+The log_sale function is responsible for logging a sale to the sales table if the 'updatedat' value in the new CSV file is newer than the old 'updatedat' value.
+The function takes the cursor and the host as input.
+It first checks if a sale has already been logged for the current run using the sale_logged global variable.
+If a sale has not been logged, the function retrieves the old and new 'updatedat' values from the merged_df DataFrame.
+If the new 'updatedat' value is newer than the old 'updatedat' value, an INSERT statement is executed to insert a new row into the sales table with the host, the current date, and a sales count of 1.
+The ON CONFLICT clause is used to update the sales count if a row already exists for the same host and date.
+After logging the sale, the sale_logged flag is set to True.
+The function then updates the 'updatedat' value for all products in the shopify_track table for the corresponding host to the latest 'updatedat' value from the new CSV file.
+
+
+
+Final Steps:
+After processing all the changes, the code checks if no changes have occurred (except for 'updatedat') and if a sale has not been logged.
+If these conditions are met, and the 'updatedat' value has changed in the latest CSV file, and the new 'updatedat' is newer than the old 'updatedat', the log_sale function is called to log a sale.
+Finally, the database connection is closed, and a log message is displayed.
